@@ -19,7 +19,7 @@ setInterval(showTime, 1000);
  * 疑惑：怎么看出是jsonp请求
  */
 // var data;
-function getData() {
+/*function getData() {
     $.ajax({
         url: 'https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5',
         data: {
@@ -29,9 +29,9 @@ function getData() {
         success: function (res) {
             var data = JSON.parse(res.data);
             center1(data);
-            center2(data);
-            right1(data);
-            right2(data);
+            //center2(data);
+            //right1(data);
+            //right2(data);
             // console.log($('#center2')[0]);//拿到dom对象
         }
     });
@@ -51,17 +51,36 @@ function getData() {
         }
     })
 }
+*/
+
+function getData() {
+    $.ajax({
+        url: 'https://tiezheng.natapp4.cc/api/borrow/stats',
+        method: 'GET',
+        dataType: 'json', // 注意：改为 json，不是 jsonp
+        success: function (data) {
+            // 这里的数据已经是 JSON，不需要再 JSON.parse
+            center1(data); // 你可以根据接口返回结构来处理数据
+            //center2(data);
+            //right1(data);
+            //right2(data);
+        },
+        error: function (xhr, status, error) {
+            console.error("数据请求失败：", error);
+        }
+    });
+}
 
 getData();
 setInterval(getData,5*60*1000);//每5分钟发送一次请求刷新数据
 
 function center1(data) {
-    $('#confirm').text(data.chinaTotal.confirm);
-    $('#heal').text(data.chinaTotal.heal);
-    $('#dead').text(data.chinaTotal.dead);
-    $('#nowConfirm').text(data.chinaTotal.nowConfirm);
-    $('#noInfect').text(data.chinaTotal.noInfect);
-    $('#overseasImport').text(data.chinaTotal.importedCase);
+    $('#confirm').text(data.todayBorrow);
+    $('#heal').text(data.monthBorrow);
+    $('#dead').text(data.todayReturn);
+    $('#nowConfirm').text(data.totalBorrow);
+    $('#noInfect').text(data.totalReaders);
+    $('#overseasImport').text(data.avgBorrow.toFixed(2)); // 保留两位小数
 }
 
 function center2(data) {
