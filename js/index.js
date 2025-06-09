@@ -75,13 +75,15 @@ getData();
 setInterval(getData,5*60*1000);//每5分钟发送一次请求刷新数据
 
 function center1(data) {
-    $('#confirm').text(data.todayBorrow);
-    $('#heal').text(data.monthBorrow);
-    $('#dead').text(data.todayReturn);
-    $('#nowConfirm').text(data.totalBorrow);
-    $('#noInfect').text(data.totalReaders);
-    $('#overseasImport').text(data.avgBorrow.toFixed(2)); // 保留两位小数
+    $('#confirm').text(data.todayBorrow || 0);
+    $('#heal').text(data.monthBorrow || 0);
+    $('#dead').text(data.todayReturn || 0);
+    $('#nowConfirm').text(data.totalBorrow || 0);
+    $('#noInfect').text(data.totalReaders || 0);
+
+    $('#overseasImport').text((data.avgBorrow ?? 0).toFixed(2));
 }
+
 
 function center2(data) {
     var myChart = echarts.init($('#center2')[0], 'dark');
