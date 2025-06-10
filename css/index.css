@@ -43,7 +43,7 @@ body {
     height: 25%;
     position: absolute;
     left: 30%;
-    top: 10%;
+    top: 7%;
 
     display: flex;
     flex-wrap: wrap; /*超出换行*/
@@ -72,11 +72,105 @@ body {
 
 #center2 {
     width: 40%;
-    height: 65%;
+    height: 45%;
+    position: absolute;
+    left: 30%;
+    top: 33%;
+}
+
+/*
+#center3 {
+    width: 40%;
+    height: 25%;
     position: absolute;
     left: 30%;
     top: 35%;
 }
+*/
+
+/*
+center3部分
+*/
+#center3 {
+    width: 40%;
+    height: 25%;
+    position: absolute;
+    left: 30%;
+    top: 77%;
+    display: flex;
+    justify-content: space-between;
+    color: #fff; 
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+.center3-module {
+    flex: 1;
+    margin: 0 5px;
+    display: flex;
+    flex-direction: column;
+}
+.module-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 4px; 
+    font-size: 12px; 
+}
+.tabs {
+    display: flex;
+}
+.tab {
+    margin-left: 8px;
+    padding: 2px 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 10px; 
+    color: #ccc;
+}
+.tab.active {
+    background-color: #009688;
+    color: #fff;
+    border-color: #009688;
+}
+.accumulate-btn {
+    padding: 2px 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 10px; 
+    color: #ccc;
+}
+.chart-and-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+.chart {
+    width: 120px; /* 放大图表尺寸 */
+    height: 120px; /* 放大图表尺寸 */
+    margin-right: 10px;
+}
+.info, .legend {
+    font-size: 10px; 
+    line-height: 1.4; 
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.dot {
+    display: inline-block;
+    width: 8px; 
+    height: 8px; 
+    margin-right: 3px; 
+    border-radius: 2px;
+}
+/*
+center3部分
+*/
+
 #right1 {
     width: 30%;
     height: 45%;
@@ -90,4 +184,29 @@ body {
     position: absolute;
     right: 0;
     top: 55%;
+}
+.tabs {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tab-link {
+    padding: 10px 20px;
+    margin: 0 5px;
+    background-color: #444;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.tab-link.active {
+    background-color: #666;
+}
+
+.tab-content {
+    width: 100%;
+    height: 90%;
 }

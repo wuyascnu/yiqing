@@ -1,4 +1,4 @@
-/** 实时显示时间*/
+/** 实时显示时间 */
 function showTime() {
     var time = new Date();
     var year = time.getFullYear();
@@ -60,8 +60,7 @@ function getData() {
         dataType: 'json', // 注意：改为 json，不是 jsonp
         success: function (data) {
             // 这里的数据已经是 JSON，不需要再 JSON.parse
-            center1(data); // 你可以根据接口返回结构来处理数据
-            //center2(data);
+            center1(data);
             //right1(data);
             //right2(data);
         },
@@ -69,101 +68,199 @@ function getData() {
             console.error("数据请求失败：", error);
         }
     });
+    center2();
+    // 调用 center3 函数
+    center3();
 }
 
 getData();
-setInterval(getData,5*60*1000);//每5分钟发送一次请求刷新数据
+setInterval(getData, 5 * 60 * 1000); //每5分钟发送一次请求刷新数据
 
-function center1(data) {
-    $('#confirm').text(data.todayBorrow || 0);
-    $('#heal').text(data.monthBorrow || 0);
-    $('#dead').text(data.todayReturn || 0);
-    $('#nowConfirm').text(data.totalBorrow || 0);
-    $('#noInfect').text(data.totalReaders || 0);
+function center1(dataArray) {
+    const map = {};
 
-    $('#overseasImport').text((data.avgBorrow ?? 0).toFixed(2));
+    // 把数组转换为 key-value 映射
+    dataArray.forEach(item => {
+        map[item.statisticscode] = item.statisticsValue;
+    });
+
+    $('#confirm').text(map["Borrow-Today"] ?? 0);
+    $('#heal').text(map["Borrow-Month"] ?? 0);
+    $('#dead').text(map["Restored-Today"] ?? 0);
+    $('#nowConfirm').text(map["Borrow-All"] ?? 0);
+    $('#noInfect').text(map["ReaderCount"] ?? 0);
+
+    const avgBorrow = parseFloat(map["Borrow-ReaderAVG"] ?? 0);
+    $('#overseasImport').text(avgBorrow.toFixed(2));
 }
 
-
-function center2(data) {
-    var myChart = echarts.init($('#center2')[0], 'dark');
-
-    var option = {
+// 全局存储 chart 实例
+function center2() {
+    var trendChart = echarts.init(document.getElementById('trendChart'));
+    var trendOption = {
         title: {
-            text: '',
-        },
-        tooltip: {
-            trigger: 'item'
-        },
-        visualMap: { // 左侧小导航图标
-            show: true,
-            x: 'left',
-            y: 'bottom',
+            text: '借阅热点时间段（近10天平均数）',
+            left: 'center',
+            top: '2%',
             textStyle: {
-                fontSize: 8,
-            },
-            splitList: [{
-                    start: 1,
-                    end: 9
-                },
-                {
-                    start: 10,
-                    end: 99
-                },
-                {
-                    start: 100,
-                    end: 999
-                },
-                {
-                    start: 1000,
-                    end: 9999
-                },
-                {
-                    start: 10000
-                }
-            ],
-            color: ['#8A3310', '#C64918', '#E55B25', '#F2AD92', '#F9DCD1']
+                color: '#FFFFFF',
+                fontSize: 16
+            }
         },
-        series: [{
-            name: '累计确诊人数',
-            type: 'map',
-            mapType: 'china',
-            roam: false, // 禁用拖动和缩放
-            itemStyle: { // 图形样式
-                normal: {
-                    borderWidth: .5, //区域边框宽度
-                    borderColor: '#009fe8', //区域边框颜色
-                    areaColor: "#ffefd5", //区域颜色
-                },
-                emphasis: { // 鼠标滑过地图高亮的相关设置
-                    borderWidth: .5,
-                    borderColor: '#4b0082',
-                    areaColor: "#fff",
-                }
+        tooltip: { trigger: 'axis' },
+        legend: {
+            data: ['借书', '还书'],
+            top: '10%',
+            textStyle: { color: '#FFFFFF' }
+        },
+        grid: {
+            top: '20%',
+            left: '10%',
+            right: '10%',
+            bottom: '10%'
+        },
+        xAxis: {
+            type: 'category',
+            data: ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'],
+            axisLabel: {
+                interval: 0,
+                rotate: 0,
+                color: '#FFFFFF'
             },
-            label: { // 图形上的文本标签
-                normal: {
-                    show: true, //省份名称
-                    fontSize: 8,
-                },
-                emphasis: {
+            axisLine: { lineStyle: { color: '#AAAAAA' } }
+        },
+        yAxis: {
+            type: 'value',
+            max: 4, // 原0.4（小数）改为整数，值放大10倍
+            axisLabel: { color: '#FFFFFF' },
+            axisLine: { lineStyle: { color: '#AAAAAA' } },
+            splitLine: { lineStyle: { color: '#555555' } }
+        },
+        series: [
+            {
+                name: '借书',
+                data: [0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 2.5], // 显示为整数，可改为 [0,0,0,0,0,0,0,0,1,2,3,2]
+                type: 'line',
+                areaStyle: {},
+                color: '#F6A623',
+                label: {
                     show: true,
-                    fontSize: 8,
+                    position: 'top',
+                    color: '#FFFFFF',
+                    formatter: function (params) {
+                        return Number.isInteger(params.value) ? params.value : params.value.toFixed(1);
+                    }
                 }
             },
-            data: [] // [{'name': '上海', 'value': 318}, {'name': '云南', 'value': 162}]
-        }]
+            {
+                name: '还书',
+                data: [1, 1, 1, 1.2, 1, 0.8, 0.5, 0.3, 0, 0, 0, 0],
+                type: 'line',
+                areaStyle: {},
+                color: '#2F9D41',
+                label: {
+                    show: true,
+                    position: 'top',
+                    color: '#FFFFFF',
+                    formatter: function (params) {
+                        return Number.isInteger(params.value) ? params.value : params.value.toFixed(1);
+                    }
+                }
+            }
+        ]
     };
-
-    var provinces = data.areaTree[0].children;
-    for (var province of provinces) {
-        option.series[0].data.push({
-            'name': province.name,
-            'value': province.total.confirm
-        })
-    }
-    myChart.setOption(option);
+    trendChart.setOption(trendOption);
 }
+
+function center3() {
+    // 读者借阅人数占比环形图
+    var readerBorrowChart = echarts.init(document.getElementById('readerBorrowChart'));
+    var readerBorrowOption = {
+        series: [
+            {
+                type: 'pie',
+                radius: ['50%', '70%'], 
+                color: ['#d9e3f0', '#87e8de'],
+                data: [
+                    { value: 99.33, name: '' },
+                    { value: 0.67, name: '' }
+                ],
+                label: {
+                    show: true,
+                    position: 'center',
+                    formatter: '0.67%',
+                    fontSize: 14, 
+                    color: '#fff', 
+                    fontWeight: 'normal' 
+                }
+            }
+        ]
+    };
+    readerBorrowChart.setOption(readerBorrowOption);
+
+    // 五大部类馆藏占比饼图
+    var collectionChart = echarts.init(document.getElementById('collectionChart'));
+    var collectionOption = {
+        series: [
+            {
+                type: 'pie',
+                radius: ['30%', '50%'], 
+                data: [
+                    { value: 1.99, name: '马、列、毛、邓', itemStyle: { color: '#69c0ff' } },
+                    { value: 6.83, name: '哲学', itemStyle: { color: '#ffb64d' } },
+                    { value: 55.26, name: '社会科学', itemStyle: { color: '#ff7dbb' } },
+                    { value: 34.33, name: '自然科学', itemStyle: { color: '#87e8de' } },
+                    { value: 1.58, name: '综合性图书', itemStyle: { color: '#ff6b6b' } }
+                ],
+                label: {
+                    show: false
+                }
+            }
+        ]
+    };
+    collectionChart.setOption(collectionOption);
+
+    // 图书流通率半环形图
+    var circulationChart = echarts.init(document.getElementById('circulationChart'));
+    var circulationOption = {
+        series: [
+            {
+                type: 'gauge',
+                startAngle: 180,
+                endAngle: 0,
+                radius: '70%', 
+                axisLine: {
+                    lineStyle: {
+                        width: 10,
+                        color: [[0.2979, '#ffb64d'], [1, '#d9d9d9']]
+                    }
+                },
+                pointer: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                },
+                splitLine: {
+                    show: false
+                },
+                axisLabel: {
+                    show: false
+                },
+                detail: {
+                    show: true,
+                    formatter: '29.79%',
+                    fontSize: 14, 
+                    color: '#fff', 
+                    fontWeight: 'normal', 
+                    offsetCenter: [0, '0%']
+                }
+            }
+        ]
+    };
+    circulationChart.setOption(circulationOption);
+}
+
 
 function right1(data) {
     var myChart = echarts.init($('#right1')[0], 'dark');
@@ -307,8 +404,8 @@ function right2(data) {
     myChart.setOption(option);
 }
 
-function left1(data){
-    var myChart = echarts.init($('#left1')[0],'dark');
+function left1(data) {
+    var myChart = echarts.init($('#left1')[0], 'dark');
 
     var option = {
         title: {
@@ -402,8 +499,8 @@ function left1(data){
     myChart.setOption(option);
 }
 
-function left2(data){
-    var myChart = echarts.init($('#left2')[0],'dark');
+function left2(data) {
+    var myChart = echarts.init($('#left2')[0], 'dark');
 
     var option = {
         title: {
@@ -425,7 +522,7 @@ function left2(data){
         },
         //图例
         legend: {
-            data: ['新增确诊', '新增疑似','新增境外输入'],
+            data: ['新增确诊', '新增疑似', '新增境外输入'],
             left: 'right'
         },
         //图形位置
@@ -478,7 +575,7 @@ function left2(data){
             type: 'line',
             smooth: true,
             data: [] // [25, 75, 122]
-        },{
+        }, {
             name: '新增境外输入',
             type: 'line',
             smooth: true,
