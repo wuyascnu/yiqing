@@ -171,6 +171,7 @@ center3部分
 center3部分
 */
 
+/*
 #right1 {
     width: 30%;
     height: 45%;
@@ -178,6 +179,78 @@ center3部分
     right: 0;
     top: 10%;
 }
+*/
+
+#right1 {
+    width: 30%;
+    height: 48%;
+    position: absolute;
+    right: 0;
+    top: 7%;
+    color: #fff;
+    padding: 15px;
+    box-sizing: border-box;
+    overflow: hidden; /* 移除滚动条 */
+}
+
+.report-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.borrow-ranking {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #444;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.borrow-ranking th,
+.borrow-ranking td {
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid #666;
+    font-size: 13px;
+    white-space: nowrap; /* 防止文本换行 */
+    overflow: hidden;
+    text-overflow: ellipsis; /* 超出部分显示省略号 */
+}
+
+.borrow-ranking th {
+    background-color: #555;
+    font-weight: bold;
+}
+
+.borrow-ranking tr:nth-child(even) {
+    background-color: #333;
+}
+
+/* 调整列宽 */
+.borrow-ranking th:nth-child(1),
+.borrow-ranking td:nth-child(1) {
+    width: 10%;
+}
+
+.borrow-ranking th:nth-child(2),
+.borrow-ranking td:nth-child(2) {
+    width: 50%;
+}
+
+.borrow-ranking th:nth-child(3),
+.borrow-ranking td:nth-child(3) {
+    width: 30%;
+}
+
+.borrow-ranking th:nth-child(4),
+.borrow-ranking td:nth-child(4) {
+    width: 10%;
+    text-align: right;
+}
+
+
 #right2 {
     width: 30%;
     height: 45%;

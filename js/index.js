@@ -71,6 +71,7 @@ function getData() {
     center2();
     // 调用 center3 函数
     center3();
+    right1();
 }
 
 getData();
@@ -262,77 +263,8 @@ function center3() {
 }
 
 
-function right1(data) {
-    var myChart = echarts.init($('#right1')[0], 'dark');
-    var option = {
-        title: {
-            text: "全国现确诊省市TOP10",
-            textStyle: {
-                color: 'white',
-            },
-            left: 'left'
-        },
-        color: ['#3398DB'],
-        tooltip: {
-            trigger: 'axis',
-            //指示器
-            axisPointer: {
-                type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-            }
-        },
-        xAxis: {
-            type: 'category',
-            data: [], //['湖北','广州','北京']
-            axisLabel: {
-                fontSize: 10,
-                color: 'white',
-                interval: 0,
-                rotate: 0
-            }
-        },
-        yAxis: {
-            type: 'value',
-            //y轴字体设置
-            axisLabel: {
-                show: true,
-                color: 'white',
-                fontSize: 12,
-                formatter: function (value) {
-                    if (value >= 1000) {
-                        value = value / 1000 + 'k';
-                    }
-                    return value;
-                }
-            },
-        },
-        series: [{
-            data: [], //[5820, 3000, 1000],
-            type: 'bar',
-            barMaxWidth: "50%"
-        }]
-    };
-
-    var provinces = data.areaTree[0].children;
-    var topData10 = []; //数据临时存储
-    for (var province of provinces) {
-        topData10.push({
-            'name': province.name,
-            'value': province.total.nowConfirm
-        })
-    }
-
-    //降序排序(重点)
-    topData10.sort(function (a, b) {
-        return b.value - a.value; //排序规则
-    });
-    //只保留前10条
-    topData10.length = 10;
-    //分别取出省份名称和对应数值
-    for (var province of topData10) {
-        option.xAxis.data.push(province.name);
-        option.series[0].data.push(province.value);
-    }
-    myChart.setOption(option);
+function right1() {
+    
 }
 
 function right2(data) {
