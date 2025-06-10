@@ -172,7 +172,26 @@
         </table>
     </div>
 
-    <div id="right2"></div>
+    <div id="right2">
+        <div class="marquee-title">借书逾期名单</div>
+        <div class="marquee-container">
+            <table class="marquee-table">
+                <thead>
+                    <tr>
+                        <th>部门</th>
+                        <th>姓名</th>
+                        <th>正题名</th>
+                        <th>借书日期</th>
+                        <th>应还日期</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody id="marqueeList">
+                    <!-- 动态填充逾期数据 -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <script src="js/echarts.min.js"></script>
     <script src="js/china.js"></script><!-- 中国地图数据 -->
