@@ -265,7 +265,7 @@ function center3() {
 
 function right1() {
     $.ajax({
-        url: '/api/catalogueReport',
+        url: ' https://tiezheng.natapp4.cc//api/catalogue/stats',
         method: 'GET',
         success: function (res) {
             if (res.rtcode === '000' && res.data && res.data.results) {
