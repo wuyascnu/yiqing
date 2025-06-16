@@ -363,11 +363,7 @@ function right2(data) {
 */
 
 function right2() {
-    // 模拟借书逾期静态数据
-    const overdueData = [];
-
     const marqueeList = document.getElementById('marqueeList');
-    let html = '';
     
 	$.ajax({
         url: 'https://tiezheng.natapp4.cc/api/borrow-reminder/all',
@@ -375,7 +371,7 @@ function right2() {
         success: function (res) {
             // 后端直接返回数组（如 Array(100)），前端判断处理为数组格式
             if (Array.isArray(res)) {
-                overdueData = res;
+                const overdueData = res;
                 let html = '';
                 list.forEach((item, index) => {
                     html += `
