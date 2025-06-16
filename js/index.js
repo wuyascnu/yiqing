@@ -364,41 +364,40 @@ function right2(data) {
 
 function right2() {
     // 模拟借书逾期静态数据
-    const overdueData = [
-        { department: '初一6班', name: '梁鸿森', bookTitle: '半小时漫画...', borrowDate: '2025-06-03', returnDate: '2025-08-02', status: '未还' },
-        { department: '初一1班', name: '李语欣', bookTitle: '你只是看起来...', borrowDate: '2025-05-28', returnDate: '2025-07-27', status: '未还' },
-        { department: '初一6班', name: '孙文昊', bookTitle: '亚洲惊天大...', borrowDate: '2025-05-26', returnDate: '2025-07-25', status: '未还' },
-        { department: '初一6班', name: '孙文昊', bookTitle: '亚洲惊天大...', borrowDate: '2025-05-26', returnDate: '2025-07-25', status: '未还' },
-        { department: '初一6班', name: '孙文昊', bookTitle: '突出重围', borrowDate: '2025-05-26', returnDate: '2025-07-25', status: '未还' },
-        { department: '初一3班', name: '徐玮键', bookTitle: '如果历史是...', borrowDate: '2025-05-22', returnDate: '2025-07-21', status: '未还' },
-        { department: '初一3班', name: '徐玮键', bookTitle: '半小时漫画...', borrowDate: '2025-05-22', returnDate: '2025-07-21', status: '未还' },
-        { department: '初一2班', name: '杜誉骞', bookTitle: '藏在故宫里...', borrowDate: '2025-05-15', returnDate: '2025-07-14', status: '未还' },
-        { department: '初一6班', name: '唐均濠', bookTitle: '趣味物理学', borrowDate: '2025-05-14', returnDate: '2025-07-13', status: '未还' },
-        { department: '初一2班', name: '杜誉骞', bookTitle: '马克思主义...', borrowDate: '2025-05-12', returnDate: '2025-07-11', status: '未还' },
-        { department: '初一3班', name: '张玮深', bookTitle: '半小时漫画...', borrowDate: '2025-06-09', returnDate: '2025-07-09', status: '未还' },
-        { department: '初一3班', name: '张玮深', bookTitle: '近战机密 枪械', borrowDate: '2025-06-09', returnDate: '2025-07-09', status: '未还' },
-        { department: '初一3班', name: '徐浩轩', bookTitle: '文城', borrowDate: '2025-05-09', returnDate: '2025-07-08', status: '未还' },
-        { department: '初一6班', name: '梁鸿森', bookTitle: '半小时漫画...', borrowDate: '2025-06-03', returnDate: '2025-07-03', status: '未还' },
-        { department: '德育处', name: '伍诗婷', bookTitle: '杀死一只知...', borrowDate: '2025-04-03', returnDate: '2025-07-02', status: '未还' }
-    ];
+    const overdueData = [];
 
     const marqueeList = document.getElementById('marqueeList');
     let html = '';
     
-    // 填充数据行
-    overdueData.forEach((item, index) => {
-        html += `
-            <tr>
-                <td>${item.department}</td>
-                <td>${item.name}</td>
-                <td>${item.bookTitle}</td>
-                <td>${item.borrowDate}</td>
-                <td>${item.returnDate}</td>
-                <td>${item.status}</td>
-            </tr>
-        `;
+	$.ajax({
+        url: 'https://tiezheng.natapp4.cc/api/borrow-reminder/all',
+        method: 'GET',
+        success: function (res) {
+            // 后端直接返回数组（如 Array(100)），前端判断处理为数组格式
+            if (Array.isArray(res)) {
+                overdueData = res;
+                let html = '';
+                list.forEach((item, index) => {
+                    html += `
+                        <tr>
+                            <td title="${item.userDepartmentName }">${item.userDepartmentName }</td>
+                            <td>${item.userRealName }</td>
+							<td>${item.bookName }</td>
+							<td>${item.borrowTime ? item.borrowTime.split(' ')[0] : ''}</td>
+							<td>${item.shouldReturnTimeSrc ? item.shouldReturnTimeSrc.split(' ')[0] : ''}</td>
+                            <td>${item.state || ''}</td>
+                        </tr>
+                    `;
+                });
+                $('#marqueeList').html(html);
+            } else {
+                console.warn('数据格式异常（不是数组）：', res);
+            }
+        },
+        error: function (err) {
+            console.error('排行榜加载失败', err);
+        }
     });
-    
     marqueeList.innerHTML = html;
 }
 
