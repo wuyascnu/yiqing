@@ -99,22 +99,29 @@
         </div>
     </div>
     
-    <div id="right1">
-        <div class="report-title">图书借阅排行榜</div>
-          <table class="borrow-ranking">
+<div id="right1">
+    <div class="report-title">图书借阅排行榜</div>
+    <div class="ranking-container">
+        <table class="borrow-ranking">
             <thead>
                 <tr>
-                <th>序号</th>
-                <th>正题名</th>
-                <th>索书号</th>
-                <th>借阅次数</th>
+                    <th>序号</th>
+                    <th>正题名</th>
+                    <th>索书号</th>
+                    <th>借阅次数</th>
                 </tr>
-           </thead>
-           <tbody id="borrowRankingBody">
-            <!-- JS 动态填充 -->
-          </tbody>
-          </table>
+            </thead>
+        </table>
+        <div class="ranking-scroll">
+            <table class="borrow-ranking">
+                <tbody id="borrowRankingBody">
+                    <!-- JS 动态填充 -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
 
 
     <div id="right2">

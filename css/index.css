@@ -190,45 +190,69 @@ center3部分
     color: #fff;
     padding: 15px;
     box-sizing: border-box;
-    overflow: hidden; /* 移除滚动条 */
+    overflow: hidden;
 }
 
+/* 标题样式 */
 .report-title {
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     text-align: center;
 }
 
+/* 整体容器：包含表头和滚动区域 */
+.ranking-container {
+    width: 100%;
+    height: calc(100% - 30px); /* 减去标题高度 */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* 表头 */
+.ranking-container table.borrow-ranking thead {
+    background-color: #555;
+}
+
+/* 内容滚动区域 */
+.ranking-scroll {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+/* 表格基础样式 */
 .borrow-ranking {
     width: 100%;
     border-collapse: collapse;
     background-color: #444;
-    border-radius: 8px;
-    overflow: hidden;
+    table-layout: fixed; /* 保持列宽一致 */
 }
 
+/* 表格单元格 */
 .borrow-ranking th,
 .borrow-ranking td {
     padding: 8px 10px;
     text-align: left;
     border-bottom: 1px solid #666;
     font-size: 13px;
-    white-space: nowrap; /* 防止文本换行 */
+    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; /* 超出部分显示省略号 */
+    text-overflow: ellipsis;
 }
 
+/* 表头字体 */
 .borrow-ranking th {
-    background-color: #555;
     font-weight: bold;
 }
 
+/* 隔行背景 */
 .borrow-ranking tr:nth-child(even) {
     background-color: #333;
 }
 
-/* 调整列宽 */
+/* 列宽设置 */
 .borrow-ranking th:nth-child(1),
 .borrow-ranking td:nth-child(1) {
     width: 10%;
@@ -250,11 +274,30 @@ center3部分
     text-align: right;
 }
 
-/* 垂直滚动动画 */
+/* 动画应用到 tbody 内容 */
 #borrowRankingBody {
-    animation: verticalMarquee 30s linear infinite; /* 30秒滚动一次，可调整 */
+    animation: verticalMarquee 30s linear infinite;
 }
 
+/* 鼠标悬停暂停滚动 */
+#borrowRankingBody:hover {
+    animation-play-state: paused;
+}
+
+/* 滚动动画定义 */
+@keyframes verticalMarquee {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+
+/*
+right1
+*/
 
 /*原来的right2
 #right2 {
