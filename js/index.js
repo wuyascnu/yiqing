@@ -367,14 +367,13 @@ function right2() {
     
 	// 用 let 声明可变变量
     let overdueData = [];
-
+     let html = '';
     $.ajax({
         url: 'https://tiezheng.natapp4.cc/api/borrow-reminder/all',
         method: 'GET',
         success: function (res) {
             if (Array.isArray(res)) {
                 overdueData = res;
-                let html = '';
                 overdueData.forEach(item => {
                     html += `
                         <tr>
