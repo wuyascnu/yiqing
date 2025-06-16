@@ -250,6 +250,11 @@ center3部分
     text-align: right;
 }
 
+/* 垂直滚动动画 */
+#borrowRankingBody {
+    animation: verticalMarquee 30s linear infinite; /* 30秒滚动一次，可调整 */
+}
+
 
 /*原来的right2
 #right2 {
