@@ -263,11 +263,12 @@ function center3() {
 
 function right1() {
     $.ajax({
-        url: ' https://tiezheng.natapp4.cc/api/catalogue/stats',
+        url: 'https://tiezheng.natapp4.cc/api/catalogue/stats',
         method: 'GET',
         success: function (res) {
-            if (res.rtcode === '000' && res.data && res.data.results) {
-                const list = res.data.results;
+            // 后端直接返回数组（如 Array(100)），前端判断处理为数组格式
+            if (Array.isArray(res)) {
+                const list = res;
                 let html = '';
                 list.forEach((item, index) => {
                     html += `
@@ -281,7 +282,7 @@ function right1() {
                 });
                 $('#borrowRankingBody').html(html);
             } else {
-                console.warn('数据异常：', res);
+                console.warn('数据格式异常（不是数组）：', res);
             }
         },
         error: function (err) {
@@ -289,7 +290,6 @@ function right1() {
         }
     });
 }
-
 
 /*
 function right2(data) {
