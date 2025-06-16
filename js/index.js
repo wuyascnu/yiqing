@@ -61,8 +61,6 @@ function getData() {
         success: function (data) {
             // 这里的数据已经是 JSON，不需要再 JSON.parse
             center1(data);
-            //right1(data);
-            //right2(data);
         },
         error: function (xhr, status, error) {
             console.error("数据请求失败：", error);
@@ -265,7 +263,7 @@ function center3() {
 
 function right1() {
     $.ajax({
-        url: ' https://tiezheng.natapp4.cc//api/catalogue/stats',
+        url: ' https://tiezheng.natapp4.cc/api/catalogue/stats',
         method: 'GET',
         success: function (res) {
             if (res.rtcode === '000' && res.data && res.data.results) {
