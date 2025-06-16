@@ -365,22 +365,24 @@ function right2(data) {
 function right2() {
     const marqueeList = document.getElementById('marqueeList');
     
-	$.ajax({
+	// 用 let 声明可变变量
+    let overdueData = [];
+
+    $.ajax({
         url: 'https://tiezheng.natapp4.cc/api/borrow-reminder/all',
         method: 'GET',
         success: function (res) {
-            // 后端直接返回数组（如 Array(100)），前端判断处理为数组格式
             if (Array.isArray(res)) {
-                const overdueData = res;
+                overdueData = res;
                 let html = '';
-                list.forEach((item, index) => {
+                overdueData.forEach(item => {
                     html += `
                         <tr>
-                            <td title="${item.userDepartmentName }">${item.userDepartmentName }</td>
-                            <td>${item.userRealName }</td>
-							<td>${item.bookName }</td>
-							<td>${item.borrowTime ? item.borrowTime.split(' ')[0] : ''}</td>
-							<td>${item.shouldReturnTimeSrc ? item.shouldReturnTimeSrc.split(' ')[0] : ''}</td>
+                            <td title="${item.userDepartmentName || '无'}">${item.userDepartmentName || '无'}</td>
+                            <td>${item.userRealName || ''}</td>
+                            <td>${item.bookName || ''}</td>
+                            <td>${item.borrowTime ? item.borrowTime.split(' ')[0] : ''}</td>
+                            <td>${item.shouldReturnTimeSrc ? item.shouldReturnTimeSrc.split(' ')[0] : ''}</td>
                             <td>${item.state || ''}</td>
                         </tr>
                     `;
