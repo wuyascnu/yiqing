@@ -276,7 +276,7 @@ center3部分
 
 /* 动画应用到 tbody 内容 */
 #borrowRankingBody {
-    animation: verticalMarquee 30s linear infinite;
+    animation: verticalMarquee 90s linear infinite;
 }
 
 /* 鼠标悬停暂停滚动 */
