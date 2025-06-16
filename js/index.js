@@ -263,10 +263,35 @@ function center3() {
     circulationChart.setOption(circulationOption);
 }
 
-
 function right1() {
-    
+    $.ajax({
+        url: '/api/catalogueReport',
+        method: 'GET',
+        success: function (res) {
+            if (res.rtcode === '000' && res.data && res.data.results) {
+                const list = res.data.results;
+                let html = '';
+                list.forEach((item, index) => {
+                    html += `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td title="${item.bookName}">${item.bookName}</td>
+                            <td>${item.kindCode}</td>
+                            <td style="text-align: right;">${item.catalogue_rows}</td>
+                        </tr>
+                    `;
+                });
+                $('#borrowRankingBody').html(html);
+            } else {
+                console.warn('数据异常：', res);
+            }
+        },
+        error: function (err) {
+            console.error('排行榜加载失败', err);
+        }
+    });
 }
+
 
 /*
 function right2(data) {
