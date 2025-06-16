@@ -276,7 +276,7 @@ function right1() {
                             <td>${index + 1}</td>
                             <td title="${item.bookName}">${item.bookName}</td>
                             <td>${item.kindCode}</td>
-                            <td style="text-align: right;">${item.catalogue_rows}</td>
+                            <td style="text-align: right;">${item.catalogueRows}</td>
                         </tr>
                     `;
                 });
