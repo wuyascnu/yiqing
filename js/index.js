@@ -377,7 +377,7 @@ function right2() {
                 overdueData.forEach(item => {
                     html += `
                         <tr>
-                            <td title="${item.userDepartmentName || '无'}">${item.userDepartmentName || '无'}</td>
+                            <td title="${item.userParentDepartmentName || '无'}">${item.userParentDepartmentName || '无'}</td>
                             <td>${item.userRealName || ''}</td>
                             <td>${item.bookName || ''}</td>
                             <td>${item.borrowTime ? item.borrowTime.split(' ')[0] : ''}</td>
