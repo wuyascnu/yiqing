@@ -227,23 +227,27 @@ center3部分
     width: 100%;
     border-collapse: collapse;
     background-color: #444;
-    table-layout: fixed; /* 保持列宽一致 */
+    table-layout: fixed; /* ✅ 固定列宽，防止表格被撑宽 */
 }
 
 /* 表格单元格 */
 .borrow-ranking th,
 .borrow-ranking td {
-    padding: 8px 10px;
+    padding: 6px 8px;
     text-align: left;
     border-bottom: 1px solid #666;
     font-size: 13px;
     overflow: hidden;
-    text-overflow: ellipsis;
-	
-    /* ✅ 修改以下三行以启用自动换行 */
-    white-space: normal;       /* 允许换行 */
-    word-break: break-word;    /* 单词或汉字都能断行 */
-    max-width: 130px;          /* 限制最大宽度（可根据需要调整） */
+
+    white-space: normal;
+    word-break: break-word;
+
+    /* ✅ 限制最大高度，避免一格撑太高 */
+    max-height: 3.6em;
+    line-height: 1.2em;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;        /* 限制最多3行 */
+    -webkit-box-orient: vertical;
 }
 
 /* 表头字体 */
