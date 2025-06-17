@@ -379,7 +379,7 @@ function right2() {
                         <tr>
                             <td title="${item.userParentDepartmentName || '无'}">${item.userParentDepartmentName || '无'}</td>
                             <td>${item.userRealName || ''}</td>
-                            <td>${item.bookName || ''}</td>
+                            <td>  ${item.bookName ? item.bookName.replace(/\n/g, '<br>') : ''}</td>
                             <td>${item.borrowTime ? item.borrowTime.split(' ')[0] : ''}</td>
                             <td>${item.shouldReturnTimeSrc ? item.shouldReturnTimeSrc.split(' ')[0] : ''}</td>
                             <td>${item.state || ''}</td>
