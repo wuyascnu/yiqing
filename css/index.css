@@ -276,7 +276,7 @@ center3部分
 
 /* 动画应用到 tbody 内容 */
 #borrowRankingBody {
-    animation: verticalMarquee 125s linear infinite;
+    animation: verticalMarquee 160s linear infinite;
 }
 
 /* 鼠标悬停暂停滚动 */
@@ -367,7 +367,7 @@ right1
 
 /* 垂直滚动动画 */
 #marqueeList {
-    animation: verticalMarquee 125s linear infinite; /* 30秒滚动一次，可调整 */
+    animation: verticalMarquee 160s linear infinite; /* 30秒滚动一次，可调整 */
 }
 
 @keyframes verticalMarquee {
