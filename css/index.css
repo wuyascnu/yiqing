@@ -237,9 +237,14 @@ center3部分
     text-align: left;
     border-bottom: 1px solid #666;
     font-size: 13px;
-    white-space: nowrap;
-    overflow: hidden;
+    /*white-space: nowrap;
+    overflow: hidden;*/
     text-overflow: ellipsis;
+	
+/* ✅ 修改以下三行以启用自动换行 */
+    white-space: normal;       /* 允许换行 */
+    word-break: break-word;    /* 单词或汉字都能断行 */
+    max-width: 150px;          /* 限制最大宽度（可根据需要调整） */
 }
 
 /* 表头字体 */
@@ -360,7 +365,7 @@ right1
     word-break: break-word;    /* 单词或汉字都能断行 */
     max-width: 150px;          /* 限制最大宽度（可根据需要调整） */
 	
-    white-space: nowrap;
+    /*white-space: nowrap;*/
     overflow: hidden;
     text-overflow: ellipsis;
 }
