@@ -237,8 +237,8 @@ center3部分
     text-align: left;
     border-bottom: 1px solid #666;
     font-size: 13px;
-    /*white-space: nowrap;
-    overflow: hidden;*/
+    /*white-space: nowrap;*/
+    overflow: hidden;
     text-overflow: ellipsis;
 	
 /* ✅ 修改以下三行以启用自动换行 */
