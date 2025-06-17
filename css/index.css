@@ -307,7 +307,9 @@ right1
     right: 0;
     top: 55%;
 }
+
 */
+/*right2 */
 #right2 {
     width: 30%;
     height: 45%;
@@ -348,7 +350,12 @@ right1
     text-align: left;
     border-bottom: 1px solid #666;
     font-size: 13px;
-    white-space: nowrap;
+	
+	   /* ✅ 修改以下三行以启用自动换行 */
+    white-space: normal;       /* 允许换行 */
+    word-break: break-word;    /* 单词或汉字都能断行 */
+    max-width: 150px;          /* 限制最大宽度（可根据需要调整） */
+
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -378,6 +385,7 @@ right1
         transform: translateY(-100%);
     }
 }
+
 
 /* 鼠标悬停时暂停动画 */
 #marqueeList:hover {
